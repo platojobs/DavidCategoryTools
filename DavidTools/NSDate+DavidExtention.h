@@ -48,9 +48,41 @@
 
  -(NSString*)getTimeStringWithSp:(NSString *)sp;
 
+/*从这个日期加上N年
+ * @param  years  多少年
+ */
+- (NSDate *)dateByAddingYears:(NSInteger)years;
+/* 从这个日期加上N月
+ * @param  years  多少月
+ */
+- (NSDate *)dateByAddingMonths:(NSInteger)months;
+/*从这个日期加上N日
+ * @param  years  多少月
+ */
+- (NSDate *)dateByAddingWeeks:(NSInteger)weeks;
+/*从这个日期加上N天
+ * @param  years  多少天
+ */
+- (NSDate *)dateByAddingDays:(NSInteger)days;
+/*从这个日期加上N小时
+ * @param  years  多少小时
+ */
+- (NSDate *)dateByAddingHours:(NSInteger)hours;
+/*从这个日期加上N分钟
+ * @param  years  多少分钟
+ */
+- (NSDate *)dateByAddingMinutes:(NSInteger)minutes;
+/*从这个日期加上N秒
+ * @param  years  多少秒
+ */
+- (NSDate *)dateByAddingSeconds:(NSInteger)seconds; 
 
-
-
+/****
+ 
+ iOS比较日期大小默认会比较到秒
+ 
+ ****/
++(NSComparisonResult)compareOneDay:(NSDate *)oneDay withAnotherDay:(NSDate *)anotherDay;
 
 
 

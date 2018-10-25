@@ -178,11 +178,104 @@
     NSLog(@"月日:%@",dateString);
     return [NSString stringWithFormat:@"%ld",(long)[comps day]];
     
+}
+
+- (NSDate *)dateByAddingYears:(NSInteger)years {
+    NSCalendar *calendar =  [NSCalendar currentCalendar];
+    NSDateComponents *components = [[NSDateComponents alloc] init];
+    [components setYear:years];
+    return [calendar dateByAddingComponents:components toDate:self options:0];
+}
+
+- (NSDate *)dateByAddingMonths:(NSInteger)months {
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *components = [[NSDateComponents alloc] init];
+    [components setMonth:months];
+    return [calendar dateByAddingComponents:components toDate:self options:0];
+}
+
+- (NSDate *)dateByAddingWeeks:(NSInteger)weeks {
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *components = [[NSDateComponents alloc] init];
+    [components setWeekOfYear:weeks];
+    return [calendar dateByAddingComponents:components toDate:self options:0];
+}
+
+- (NSDate *)dateByAddingDays:(NSInteger)days {
+    NSTimeInterval aTimeInterval = [self timeIntervalSinceReferenceDate] + 86400 * days;
+    NSDate *newDate = [NSDate dateWithTimeIntervalSinceReferenceDate:aTimeInterval];
+    return newDate;
+}
+
+- (NSDate *)dateByAddingHours:(NSInteger)hours {
+    NSTimeInterval aTimeInterval = [self timeIntervalSinceReferenceDate] + 3600 * hours;
+    NSDate *newDate = [NSDate dateWithTimeIntervalSinceReferenceDate:aTimeInterval];
+    return newDate;
+}
+
+- (NSDate *)dateByAddingMinutes:(NSInteger)minutes {
+    NSTimeInterval aTimeInterval = [self timeIntervalSinceReferenceDate] + 60 * minutes;
+    NSDate *newDate = [NSDate dateWithTimeIntervalSinceReferenceDate:aTimeInterval];
+    return newDate;
+}
+
+- (NSDate *)dateByAddingSeconds:(NSInteger)seconds {
+    NSTimeInterval aTimeInterval = [self timeIntervalSinceReferenceDate] + seconds;
+    NSDate *newDate = [NSDate dateWithTimeIntervalSinceReferenceDate:aTimeInterval];
+    return newDate;
+}
+
+
+/****
+ 
+ iOS比较日期大小默认会比较到秒
+ 
+ ****/
++(NSComparisonResult)compareOneDay:(NSDate *)oneDay withAnotherDay:(NSDate *)anotherDay
+
+{
     
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
     
+    [dateFormatter setDateFormat:@"dd-MM-yyyy"];
     
+    NSString *oneDayStr = [dateFormatter stringFromDate:oneDay];
+    
+    NSString *anotherDayStr = [dateFormatter stringFromDate:anotherDay];
+    
+    NSDate *dateA = [dateFormatter dateFromString:oneDayStr];
+    
+    NSDate *dateB = [dateFormatter dateFromString:anotherDayStr];
+    
+    NSComparisonResult result = [dateA compare:dateB];
+    
+    NSLog(@"date1 : %@, date2 : %@", oneDay, anotherDay);
+    
+    if (result == NSOrderedDescending) {
+        
+        //NSLog(@"Date1  is in the future");
+        
+        return NSOrderedDescending;
+        
+    }
+    
+    else if (result ==NSOrderedAscending){
+        
+        //NSLog(@"Date1 is in the past");
+        
+        return NSOrderedAscending;
+        
+    }
+    
+    //NSLog(@"Both dates are the same");
+    
+    return NSOrderedSame;
     
 }
+
+
+
+
 
 
 @end
